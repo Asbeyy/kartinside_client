@@ -6,7 +6,7 @@ import '../globals.css'
 function page() {
   return (
     <main className='page'>
-        <h2 className='title-registration'>SCARICO RESPONSABILITA'</h2>
+        <h2 className='title-registration'>SCARICO RESPONSABILITA</h2>
         <UserInformationsForm/>
         <div className='container-regolamento'>
             <TermsAndConditions/>
@@ -59,7 +59,7 @@ const conditions = [
 
 return (
     <div>
-    <h2>E' VIETATO</h2>
+    <h2>E VIETATO</h2>
     <ul>
         {conditions.map((condition, index) => (
         <li key={index}>{condition}</li>
@@ -157,7 +157,7 @@ function UserInformationsForm(){
             <form className='form-registration' action="">
 
                 <div>
-                    <h4>Generalita'</h4>
+                    <h4>Generalita</h4>
                     <div className='container-personal-info'>
                         <div className='input-component'>
                             <label htmlFor="nome">Nome</label>
