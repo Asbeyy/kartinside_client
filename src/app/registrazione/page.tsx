@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../globals.css'
 
 function page() {
@@ -91,13 +91,33 @@ const DirittiDelVenditore = () => {
 
 
 function UserInformationsForm(){
+    const [modalMinor, setModalMinor] = React.useState(false)
+    const [dateBirth, setDateBirth] = React.useState('')
 
 
+
+    function handleDateBirth(event: any){
+        const date = new Date(event.target.value)
+        
+        const UNIX18Years = 567993600000
+        const now = new Date().getTime()
+
+        if (date.getTime() > (now - UNIX18Years)){
+            setModalMinor(true)
+            return
+        }
+        
+        
+        const day = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+        setDateBirth(`${day}/${month}/${year}`)
+    }
     function sendForm(){
         const nome = document.querySelector('.namev')
         const cognome = document.querySelector('.cognomev')
+        const nickname = document.querySelector('.nicknamev')
         const lnascita = document.querySelector('.lnascitav')
-        const dnascita  = document.querySelector('.dnascitav')
         const ndocumento = document.querySelector('.ndocumentov')
 
         const indirizzo = document.querySelector('.indirizzov')
@@ -109,18 +129,19 @@ function UserInformationsForm(){
         const telefono = document.querySelector('.telefonov')
         const email = document.querySelector('.emailv')
 
-        if (!indirizzo || !comune || !provincia || !cap || !paese || !telefono || !email || !nome || !cognome || !lnascita || !dnascita || !ndocumento) return
+        if (!indirizzo || !comune || !provincia || !cap || !paese || !telefono || !email || !nome || !cognome || !lnascita  || !ndocumento) return
 
-        if ((indirizzo as HTMLInputElement).value === '' || (comune as HTMLInputElement).value === '' || (provincia as HTMLInputElement).value === '' || (cap as HTMLInputElement).value === '' || (paese as HTMLInputElement).value === '' || (telefono as HTMLInputElement).value === '' || (email as HTMLInputElement).value === '' || (nome as HTMLInputElement).value === '' || (cognome as HTMLInputElement).value === '' || (lnascita as HTMLInputElement).value === '' || (dnascita as HTMLInputElement).value === '' || (ndocumento as HTMLInputElement).value === ''){
+        if ((indirizzo as HTMLInputElement).value === '' || (comune as HTMLInputElement).value === '' || (provincia as HTMLInputElement).value === '' || (cap as HTMLInputElement).value === '' || (paese as HTMLInputElement).value === '' || (telefono as HTMLInputElement).value === '' || (email as HTMLInputElement).value === '' || (nome as HTMLInputElement).value === '' || (cognome as HTMLInputElement).value === '' || (lnascita as HTMLInputElement).value === '' ||  (ndocumento as HTMLInputElement).value === ''){
             alert('Compila tutti i campi')
             return
         }
 
         const data = 
         {
+                nome: (nome as HTMLInputElement).value,
                 cognome: (cognome as HTMLInputElement).value,
+                nickname: (nickname as HTMLInputElement).value,
                 lnascita: (lnascita as HTMLInputElement).value,
-                dnascita: (dnascita as HTMLInputElement).value,
                 ndocumento: (ndocumento as HTMLInputElement).value,
                 indirizzo: (indirizzo as HTMLInputElement).value,
                 comune: (comune as HTMLInputElement).value,
@@ -146,10 +167,39 @@ function UserInformationsForm(){
             return
         }
 
-        alert('Registrazione Avvenuta con successo')
-        window.location.href = '/'
+        fetch('https://kart-api.vercel.app/create/user',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+             nome: data.nome,
+             cognome: data.cognome,
+             nickname: data.nickname,
+             nato_a: data.lnascita,
+             residente_a: data.comune + ',' + data.provincia + ',' + data.cap + ',' + data.paese,
+             via:  data.indirizzo,
+             data_nascita: dateBirth,
+             telefono: data.telefono,
+             email: data.email,
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error){
+                return alert(data.error)
+            } if (data.message){
+                alert(data.message)
+            }
+                
+
+        })
+
+        
+        //window.location.href = '/'
 
     }
+   
 
 
     return(
@@ -168,12 +218,16 @@ function UserInformationsForm(){
                             <input type="text" className='cognomev' name="nome" id="nome"/>
                         </div>
                         <div className='input-component'>
+                            <label htmlFor="nome">Nickname</label>
+                            <input type="text" className='nicknamev' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
                             <label htmlFor="nome">Luogo di nascita</label>
                             <input type="text" className='lnascitav' name="nome" id="nome"/>
                         </div>
                         <div className='input-component'>
                             <label htmlFor="nome">Data di nascita</label>
-                            <input type="date" className='dnascitav' name="nome" id="nome"/>
+                            <input type="date" onChange={(e)=>{handleDateBirth(e)}} className='dnascitav' name="nome" id="nome"/>
                         </div>
                         <div className='input-component'>
                             <label htmlFor="nome">N. Documento</label>
@@ -221,8 +275,85 @@ function UserInformationsForm(){
                         </div>
                     </div>
                 </div>
+
                 
             </form>
+
+            {
+                modalMinor && 
+                <>
+                    <h2 style={{textAlign:"center"}}>Informazioni Responsabile Legale</h2>
+            <form className='form-registration' style={{marginTop: '20px'}}>
+            <div>
+                    <h4>Generalita</h4>
+                    <div className='container-personal-info'>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Nome</label>
+                            <input type="text" className='namev' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Cognome</label>
+                            <input type="text" className='cognomev' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Luogo di nascita</label>
+                            <input type="text" className='lnascitav' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Data di nascita</label>
+                            <input type="date" onChange={(e)=>{handleDateBirth(e)}} className='dnascitav' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">N. Documento</label>
+                            <input type="text" className='ndocumentov' name="nome" id="nome"/>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Residenza o Domicilio</h4>
+                    <div className='container-personal-info'>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Indirizzo</label>
+                            <input type="text" className='indirizzov' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Comune</label>
+                            <input type="text" className='comunev' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Provincia</label>
+                            <input type="text" className='provinciav' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">C.A.P</label>
+                            <input type="number" className='capv' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Paese</label>
+                            <input type="text" className='paesev' name="nome" id="nome"/>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Contatti</h4>
+                    <div className='container-personal-info'>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Telefono</label>
+                            <input type="number" className='telefonov' name="nome" id="nome"/>
+                        </div>
+                        <div className='input-component'>
+                            <label htmlFor="nome">Email</label>
+                            <input type="email" className='emailv' name="nome" id="nome"/>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+                </>
+            }
+
+            
+
             <div className='container-confirm-reg'>
                 <div className='accept-terms'> 
                     <input className='input-accept-terms' type="checkbox" />
