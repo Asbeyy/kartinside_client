@@ -153,3 +153,32 @@ h4{
     gap: 20px;
     margin-bottom: 40px;
 }
+
+
+
+
+@media (max-width: 1000px){
+    .form-registration{
+        flex-direction: column;
+    }
+
+    .container-confirm-reg{
+        box-sizing: border-box;
+        padding: 10px 40px;
+    }
+
+    .container-regolamento{
+        max-width: 750px;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .input-component input{
+        box-sizing: border-box;
+        border: none;
+        height: 30px;
+        width: 100%;
+        border-radius: 8px;
+        padding: 0 10px;
+    }
+}
