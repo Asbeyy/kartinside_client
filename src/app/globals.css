@@ -132,6 +132,15 @@ h4 {
   padding: 0 10px;
 }
 
+.input-component select {
+  box-sizing: border-box;
+  border: none;
+  height: 30px;
+  width: 250px;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+
 .container-personal-info {
   display: flex;
   flex-direction: column;

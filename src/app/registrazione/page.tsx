@@ -118,6 +118,7 @@ function UserInformationsForm(){
         const cognome = document.querySelector('.cognomev')
         const nickname = document.querySelector('.nicknamev')
         const lnascita = document.querySelector('.lnascitav')
+        const tdocumento = document.querySelector('.tdocumentov')
         const ndocumento = document.querySelector('.ndocumentov')
 
         const indirizzo = document.querySelector('.indirizzov')
@@ -177,7 +178,10 @@ function UserInformationsForm(){
              cognome: data.cognome,
              nickname: data.nickname,
              nato_a: data.lnascita,
-             residente_a: data.comune + ',' + data.provincia + ',' + data.cap + ',' + data.paese,
+             residente_a: data.comune,
+             cap: data.cap,
+             provincia: data.provincia,
+             nazione: data.paese,
              via:  data.indirizzo,
              data_nascita: dateBirth,
              telefono: data.telefono,
@@ -230,6 +234,14 @@ function UserInformationsForm(){
                             <input type="date" onChange={(e)=>{handleDateBirth(e)}} className='dnascitav' name="nome" id="nome"/>
                         </div>
                         <div className='input-component'>
+                            <label htmlFor="nome">Tipo Documento</label>
+                            <select name="" className='tdocumentov' id="">
+                                <option value="1">C. di Identita</option>
+                                <option value="2">Passaporto</option>
+                                <option value="3">Patente di guida</option>
+                            </select>
+                        </div>
+                        <div className='input-component'>
                             <label htmlFor="nome">N. Documento</label>
                             <input type="text" className='ndocumentov' name="nome" id="nome"/>
                         </div>
@@ -256,7 +268,7 @@ function UserInformationsForm(){
                             <input type="number" className='capv' name="nome" id="nome"/>
                         </div>
                         <div className='input-component'>
-                            <label htmlFor="nome">Paese</label>
+                            <label htmlFor="nome">Nazione</label>
                             <input type="text" className='paesev' name="nome" id="nome"/>
                         </div>
                     </div>
