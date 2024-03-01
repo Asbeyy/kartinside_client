@@ -25,6 +25,12 @@ body {
   color: white;
 }
 
+.logo-landing {
+  width: 100%;
+  margin-bottom: 30px;
+  transform: translateY(-100px);
+}
+
 .cinematic {
   width: 100vw;
   height: 100vh;
@@ -33,6 +39,10 @@ body {
   left: 0;
   z-index: -10;
   scale: 1.5;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: bottom center;
+     object-position: bottom center;
 }
 
 .title-landingpage {
@@ -148,6 +158,21 @@ h4 {
   margin-bottom: 40px;
 }
 
+@media (max-width: 400px) {
+  .cinematic {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    scale: 1.5;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center center;
+       object-position: center center;
+  }
+}
 @media (max-width: 1000px) {
   .form-registration {
     flex-direction: column;

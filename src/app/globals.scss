@@ -29,6 +29,11 @@ body{
     color: white;
 }
 
+.logo-landing{
+    width: 100%;
+    margin-bottom: 30px;
+    transform: translateY(-100px);
+}
 
 .cinematic{
     width: 100vw;
@@ -38,6 +43,8 @@ body{
     left: 0;
     z-index: -10;
     scale: 1.5;
+    object-fit: cover;
+    object-position: bottom center;
 }
 
 .title-landingpage{
@@ -162,6 +169,20 @@ h4{
     margin-bottom: 40px;
 }
 
+@media (max-width: 400px){
+    .cinematic{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -10;
+        scale: 1.5;
+        object-fit: cover;
+        object-position: center center;
+    }
+    
+}
 
 
 
