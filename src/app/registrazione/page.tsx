@@ -130,7 +130,7 @@ function UserInformationsForm(){
         const telefono = document.querySelector('.telefonov')
         const email = document.querySelector('.emailv')
 
-        if (!indirizzo || !comune || !provincia || !cap || !paese || !telefono || !email || !nome || !cognome || !lnascita  || !ndocumento) return
+        if (!indirizzo || !comune || !provincia || !cap || !paese || !telefono || !email || !nome || !cognome || !lnascita  || !ndocumento || !tdocumento) return
 
         if ((indirizzo as HTMLInputElement).value === '' || (comune as HTMLInputElement).value === '' || (provincia as HTMLInputElement).value === '' || (cap as HTMLInputElement).value === '' || (paese as HTMLInputElement).value === '' || (telefono as HTMLInputElement).value === '' || (email as HTMLInputElement).value === '' || (nome as HTMLInputElement).value === '' || (cognome as HTMLInputElement).value === '' || (lnascita as HTMLInputElement).value === '' ||  (ndocumento as HTMLInputElement).value === ''){
             alert('Compila tutti i campi')
@@ -143,6 +143,7 @@ function UserInformationsForm(){
                 cognome: (cognome as HTMLInputElement).value,
                 nickname: (nickname as HTMLInputElement).value,
                 lnascita: (lnascita as HTMLInputElement).value,
+                tdocumento: (tdocumento as HTMLInputElement).value,
                 ndocumento: (ndocumento as HTMLInputElement).value,
                 indirizzo: (indirizzo as HTMLInputElement).value,
                 comune: (comune as HTMLInputElement).value,
@@ -176,16 +177,23 @@ function UserInformationsForm(){
             body: JSON.stringify({
              nome: data.nome,
              cognome: data.cognome,
+
              nickname: data.nickname,
+
              nato_a: data.lnascita,
+
              residente_a: data.comune,
              cap: data.cap,
              provincia: data.provincia,
              nazione: data.paese,
              via:  data.indirizzo,
+
              data_nascita: dateBirth,
              telefono: data.telefono,
              email: data.email,
+             
+             document_type: data.tdocumento,
+             document_number: data.ndocumento
             })
         })
         .then(res => res.json())
