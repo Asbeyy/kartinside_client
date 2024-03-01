@@ -105,6 +105,8 @@ function UserInformationsForm(){
         if (date.getTime() > (now - UNIX18Years)){
             setModalMinor(true)
             return
+        } else {
+            setModalMinor(false)
         }
         
         
@@ -191,7 +193,7 @@ function UserInformationsForm(){
              data_nascita: dateBirth,
              telefono: data.telefono,
              email: data.email,
-             
+
              document_type: data.tdocumento,
              document_number: data.ndocumento
             })
