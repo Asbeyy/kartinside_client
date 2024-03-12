@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import "../globals.css";
 
-const urlAPI = "http://localhost:4000";
+const urlAPI = "https://kart-api.vercel.app";
 
 function page() {
 
