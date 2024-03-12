@@ -90,6 +90,7 @@ const DirittiDelVenditore = () => {
 function UserInformationsForm() {
   const [modalMinor, setModalMinor] = React.useState(false);
   const [dateBirth, setDateBirth] = React.useState("");
+  const [error, setError] = React.useState("");
 
   function handleDateBirth(event: any) {
     const date = new Date(event.target.value);
@@ -231,9 +232,11 @@ function UserInformationsForm() {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          return alert(data.error);
+          setError(data.error)
         }
+
         if (data.message) {
+          setError("")
           alert(data.message);
         }
       });
@@ -243,8 +246,7 @@ function UserInformationsForm() {
 
   const [province, setProvince] = React.useState<any>([])
 
-  useEffect(() => {
-        
+  useEffect(() => {    
         fetch(`${urlAPI}/api/province`,{
             method: "GET",
             headers: {
@@ -258,9 +260,6 @@ function UserInformationsForm() {
         })
     },[])
 
-    useEffect(() => {
-        console.log(province)
-    },[province])
 
   return (
     <div>
@@ -506,15 +505,18 @@ function UserInformationsForm() {
         </>
       )}
 
-      <div className="container-confirm-reg">
-        <div className="accept-terms">
-          <input className="input-accept-terms" type="checkbox" />
-          Dichiaro di accettare i termini e condizioni sotto riportati
+      <div className="container-bottom-pp">
+        <div className="container-confirm-reg">
+          <div className="accept-terms">
+            <input className="input-accept-terms" type="checkbox" />
+            Dichiaro di accettare i termini e condizioni sotto riportati
+          </div>
+          <div onClick={sendForm} className="register-button">
+            {" "}
+            Registrati
+          </div>
         </div>
-        <div onClick={sendForm} className="register-button">
-          {" "}
-          Registrati
-        </div>
+        <div className="errore-pp">{error}</div>
       </div>
     </div>
   );

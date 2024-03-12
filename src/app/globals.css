@@ -4,6 +4,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
+  padding: 10px 0;
+  box-sizing: border-box;
 }
 
 .landingpage {
@@ -96,7 +98,6 @@ body {
 
 .container-confirm-reg {
   margin-top: 50px;
-  margin-bottom: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -156,6 +157,23 @@ h4 {
   flex-direction: column;
   gap: 20px;
   margin-bottom: 40px;
+}
+
+.container-bottom-pp {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.container-bottom-pp .errore-pp {
+  width: 100%;
+  color: red;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 400px) {
