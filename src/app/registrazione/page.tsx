@@ -328,7 +328,7 @@ function UserInformationsForm() {
             <div className="input-component">
               <label htmlFor="nome">Provincia</label>
               <select className="provinciav" name="" id="">
-              <option value="EE">Estero</option>
+                <option value="EE">Estero</option>
                 {
                     province.map((data: any) => {
                         return <option key={data.codice} value={data.sigla}>{data.nome}</option>
